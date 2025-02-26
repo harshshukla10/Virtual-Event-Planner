@@ -1,11 +1,6 @@
 {
-    "version": 2,
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "app.js"
-        }
-    ],
+    
+
     "rewrites": [
         {
             "source": "/(.*)",
