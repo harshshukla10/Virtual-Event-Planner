@@ -1,0 +1,181 @@
+<% layout("/layouts/boilerplate") %>
+<h2
+  class="text-center"
+  style="margin-top: 5.5rem; font-family: 'Poppins', sans-serif"
+>
+  Tell Us About Your Event!
+</h2>
+
+<div
+  class="container d-flex justify-content-center align-items-center"
+  style="margin-top: 20px; margin-bottom: 20px"
+>
+  <div class="card" style="width: 100%">
+    <!-- <img
+      class="card-img-top"
+      src="<%=listing.image%>"
+      style="height: 250px; object-fit: cover"
+      alt="Card image cap"
+    /> -->
+    <div class="card-body">
+      <h5 class="card-title"><%= listing.title%></h5>
+      <p class="card-text"><%= listing.description%></p>
+    </div>
+  </div>
+</div>
+
+<form class="needs-validation row g-3" novalidate method="post">
+  <!-- Event Information -->
+  <div class="col-md-4">
+    <label class="form-label">Event Name</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Enter event name"
+      name="eventName"
+      required
+    />
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Event Type</label>
+    <select class="form-select" required name="eventType">
+      <option value="">Choose...</option>
+      <option value="Wedding">Wedding</option>
+      <option value="Conference">Conference</option>
+      <option value="Birthday Party">Birthday Party</option>
+      <option value="Workshop">Workshop</option>
+      <option value="other">Other</option>
+    </select>
+    <div class="valid-feedback">Looks good!</div>
+    <div class="invalid-feedback">Enter a valid input</div>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Event Date</label>
+    <input type="date" class="form-control" required name="eventDate" />
+    <div class="valid-feedback">Looks good!</div>
+    <div class="invalid-feedback">Enter a valid input</div>
+  </div>
+  <div class="col-md-2">
+    <label class="form-label">Start Time</label>
+    <input type="time" class="form-control" required name="startTime" />
+    <div class="valid-feedback">Looks good!</div>
+    <div class="invalid-feedback">Enter a valid input</div>
+  </div>
+
+  <!-- Guest Details -->
+  <div class="col-md-2">
+    <label class="form-label">Number of Attendees</label>
+    <input
+      type="number"
+      class="form-control"
+      placeholder="Enter number of guests"
+      name="attendees"
+      required
+    />
+    <div class="valid-feedback">Looks good!</div>
+    <div class="invalid-feedback">Enter a valid input</div>
+  </div>
+
+  <!-- Venue -->
+  <div class="col-md-4">
+    <label class="form-label">Preferred Venue</label>
+    <select class="form-select" required name="preferredVenue">
+      <option value="">Choose...</option>
+      <option>Hotel</option>
+      <option>Banquet Hall</option>
+      <option>Outdoor Garden</option>
+      <option>Virtual (Zoom, Google Meet)</option>
+    </select>
+    <div class="valid-feedback">Looks good!</div>
+    <div class="invalid-feedback">Enter a valid input</div>
+  </div>
+
+  <!-- Additional Services -->
+  <div class="col-md-4">
+    <label class="form-label">Food & Catering Required?</label>
+    <select class="form-select" required name="cateringRequired">
+      <option value="">Choose...</option>
+      <option>Yes</option>
+      <option>No</option>
+    </select>
+    <div class="valid-feedback">Looks good!</div>
+    <div class="invalid-feedback">Enter a valid input</div>
+  </div>
+
+  <!-- Budget & Payment -->
+  <div class="col-md-4">
+    <label class="form-label">Estimated Budget</label>
+    <select class="form-select" required name="estimatedBudget">
+      <option value="">Choose...</option>
+      <option>Low</option>
+      <option>Medium</option>
+      <option>High</option>
+    </select>
+    <div class="valid-feedback">Looks good!</div>
+    <div class="invalid-feedback">Enter a valid input</div>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Payment Mode</label>
+    <select class="form-select" required name="paymentMode">
+      <option value="">Choose...</option>
+      <option>UPI</option>
+      <option>Card</option>
+      <option>Cash</option>
+      <option>Online Transfer</option>
+    </select>
+    <div class="valid-feedback">Looks good!</div>
+    <div class="invalid-feedback">Enter a valid input</div>
+  </div>
+
+  <!-- Additional Requests -->
+  <div class="col-md-4">
+    <label class="form-label">Theme or Special Preferences</label>
+    <textarea
+      class="form-control"
+      rows="3"
+      placeholder="Enter any special theme or request"
+      name="specialPreferences"
+      required
+    ></textarea>
+    <div class="valid-feedback">Looks good!</div>
+    <div class="invalid-feedback">Enter a valid input</div>
+  </div>
+  <div class="col-md-12">
+    <label class="form-label">Do You Need an Event Planner?</label>
+    <select class="form-select" required aria-label="choose" name="needPlanner">
+      <option value="">Choose...</option>
+      <option>Yes</option>
+      <option>No</option>
+    </select>
+    <div class="valid-feedback">Looks good!</div>
+    <div class="invalid-feedback">Enter a valid input</div>
+  </div>
+
+  <button
+    type="submit"
+    class="btn btn-primary w-100"
+    style="margin-bottom: 20px"
+  >
+    Submit
+  </button>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var forms = document.querySelectorAll(".needs-validation");
+
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener(
+        "submit",
+        function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
+  });
+</script>

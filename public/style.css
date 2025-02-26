@@ -1,0 +1,73 @@
+/* General Styles */
+body {
+  font-family: "Arial", sans-serif;
+}
+
+/* Hero Section */
+.hero {
+  height: 60vh;
+  background: url("planner-bg.jpg") no-repeat center center/cover;
+}
+
+/* Card Styling */
+.card {
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+footer {
+  text-align: center;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap");
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+/* Carousel Caption */
+
+.carousel-caption {
+  bottom: 50%;
+  transform: translate(0, 50%);
+}
+
+.carousel-caption h5 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Responsive */
+
+#slider {
+  display: flex;
+  justify-content: center;
+  margin: 100px 40px 40px 40px; /* Adds margin from all sides */
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(100%);
+}
+
+.carousel-inner img {
+  border-radius: 20px; /* Rounds the border */
+  max-height: 500px; /* Limits image height */
+  object-fit: cover; /* Ensures proper fit */
+}
+@media (min-width: 992px) {
+  .carousel-caption h5 {
+    font-size: 4rem;
+  }
+}
