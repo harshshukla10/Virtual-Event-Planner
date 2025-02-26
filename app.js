@@ -85,3 +85,4 @@ app.post("/dashboard/:id", async (req, res) => {
 app.get("/success", (req, res) => {
   res.render("listings/success.ejs");
 });
+module.exports=app;
