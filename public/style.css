@@ -18,10 +18,12 @@ body {
   transform: scale(1.05);
 }
 
+/* Footer */
 footer {
   text-align: center;
 }
 
+/* Import Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap");
 
 *,
@@ -32,42 +34,53 @@ footer {
   padding: 0;
 }
 
+/* General Styles */
 body {
   font-family: "Poppins", sans-serif;
 }
 
-/* Carousel Caption */
-
-.carousel-caption {
-  bottom: 50%;
-  transform: translate(0, 50%);
-}
-
-.carousel-caption h5 {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #fff;
-}
-
-/* Responsive */
-
+/* Slider Section */
 #slider {
   display: flex;
   justify-content: center;
-  margin: 100px 40px 40px 40px; /* Adds margin from all sides */
+  align-items: center;
+  margin: 100px 40px 40px 40px;
 }
+
+/* Carousel Container */
+#carouselExampleCaptions {
+  width: 100%;
+  max-width: 900px; /* Adjust as needed */
+}
+
+/* Ensuring all carousel items maintain a fixed height */
+#slider .carousel-inner {
+  height: 500px;
+}
+
+#slider .carousel-item {
+  height: 100%;
+}
+
+/* Fixing image resizing issue */
+#slider .carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  display: block;
+}
+
+/* Prevent flickering during slide transition */
+.carousel-item {
+  transition: transform 0.6s ease-in-out !important;
+}
+
+/* Custom Navigation Buttons */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
   filter: invert(100%);
-}
-
-.carousel-inner img {
-  border-radius: 20px; /* Rounds the border */
-  max-height: 500px; /* Limits image height */
-  object-fit: cover; /* Ensures proper fit */
-}
-@media (min-width: 992px) {
-  .carousel-caption h5 {
-    font-size: 4rem;
-  }
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 10px;
 }
