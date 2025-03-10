@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT|| 8080;
+const port = process.env.PORT || 8080;
 const path = require("path");
 const User = require("./models/model1.js");
 const dashData = require("./models/dashdata.js");
@@ -9,6 +9,8 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const mongoose = require("mongoose");
 const { userSchema } = require("./schema.js");
+const session = require('express-session')
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -16,6 +18,7 @@ app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.engine("ejs", ejsMate);
+app.use(session({ secret: 'mysupersecretstring', resave:false,saveUninitialized:false}));
 const MONGO_URL = "mongodb://127.0.0.1:27017/VIRTUALPLANNER";
 const signup = require("./routes/signup.js");
 const login = require("./routes/login.js");
