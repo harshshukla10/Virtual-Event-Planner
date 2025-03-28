@@ -8,7 +8,8 @@
       background-size: cover;
     }
   </style>
-  <form action="" method="post" class="needs-validation" novalidate>
+
+  <form action="/SignUp" method="POST" class="needs-validation" novalidate>
     <!----------------------- Main Container -------------------------->
 
     <div
@@ -51,10 +52,22 @@
             </div>
             <div class="input-group mb-3">
               <input
+                type="text"
+                class="form-control form-control-lg bg-light fs-6"
+                placeholder="Username"
+                name="username"
+                id="username"
+                required
+              />
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="input-group mb-3">
+              <input
                 type="email"
                 class="form-control form-control-lg bg-light fs-6"
                 placeholder="Email address"
                 name="email"
+                id="email"
                 required
               />
               <div class="valid-feedback">Looks good!</div>
@@ -82,7 +95,7 @@
                 required
               />
               <div class="valid-feedback">Looks good!</div>
-              <div class="invalid-feedback">Enter a valid password</div>
+              <div class="invalid-feedback">Password does not match !</div>
             </div>
             <div class="input-group mb-5 d-flex justify-content-between">
               <div class="form-check">

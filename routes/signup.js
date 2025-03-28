@@ -18,23 +18,21 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", validateSchema, async (req, res) => {
+  let { username, email, password, copassword } = req.body;
   try {
-    let { email, password, copassword } = req.body;
-
     if (password !== copassword) {
-      return res.status(400).json({ message: "Passwords do not match!" });
+      req.flash("error", "Password does not match");
+      return res.redirect("/signup");
     }
 
-    let newUser = new User({
-      email: email,
-      password: password,
-      created_at: new Date(),
-    });
-    await newUser.save();
+    const newUser = new User({ email, username });
+    const registeredUser = await User.register(newUser, password);
+    console.log(registeredUser);
+    req.flash("success", "Welcome to BookNHost");
     res.redirect("/login");
-  } catch (error) {
-    console.error("Error saving user:", error);
-    res.status(500).json({ message: "There was an error saving the user" });
+  } catch (e) {
+    req.flash("error", e.message);
+    res.redirect("/signup");
   }
 });
 
