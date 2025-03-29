@@ -22,7 +22,8 @@ const sessionOptions = {
     httpOnly: true,
   },
 };
-const flash = require('connect-flash');
+const flash = require("connect-flash");
+const {isLoggedIn}=require("./middleware.js");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -39,6 +40,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
+  res.locals.currUser=req.user;
   next();
 });
 
@@ -72,27 +74,16 @@ app.get("/", (req, res) => {
   res.render("listings/index.ejs");
 });
 
-app.get("/demoUser",async (req,res)=>{
-  let fakeUser=new User({
-    email:"student@gmail.com",
-    username:"delta-student",
-  });
-
-  let registeredUser=await User.register(fakeUser,"helloworld");
-  res.send(registeredUser);
-
-});
-
 app.get("/home", (req, res) => {
   res.render("listings/index.ejs");
 });
 
-app.get("/dashboard", async (req, res) => {
+app.get("/dashboard", isLoggedIn, async (req, res) => {
   const dashData1 = await dashData.find({});
   res.render("listings/dashboard.ejs", { dashData1 });
 });
 
-app.get("/dashboard/:id", async (req, res) => {
+app.get("/dashboard/:id", isLoggedIn,async (req, res) => {
   try {
     let { id } = req.params;
 
@@ -103,13 +94,12 @@ app.get("/dashboard/:id", async (req, res) => {
 
     const listing = await dashData.findById(id);
     if (!listing) {
-      return res.status(404).send("Listing not found");
+      return req.flash("error", "Listing not found in DB");
     }
 
     res.render("listings/book.ejs", { listing });
   } catch (error) {
-    console.error("Error fetching listing:", error);
-    res.status(500).send("Internal Server Error");
+    req.flash("error", error.message);
   }
 });
 
@@ -123,6 +113,18 @@ app.post("/dashboard/:id", async (req, res) => {
   }
 });
 
-app.get("/success", (req, res) => {
+app.get("/logout",(req,res)=>{
+  req.logout((err)=>{
+    if(err){
+      return next(err);
+    }
+    req.flash("success","You are logged out !");
+    res.redirect("/home");
+
+  });
+ 
+});
+
+app.get("/success", isLoggedIn,(req, res) => {
   res.render("listings/success.ejs");
 });
