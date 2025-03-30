@@ -15,6 +15,10 @@ const dashDataSchema = new Schema({
         ? "color.png"
         : v,
   },
+  owner:{
+    type:Schema.Types.ObjectId,
+    ref:"User",
+  },
 });
 
 module.exports = mongoose.model("dashdata", dashDataSchema);
