@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "connect-flash": "^0.1.1",
+    "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "ejs-mate": "^4.0.0",
     "express": "^4.21.2",
@@ -23,6 +24,7 @@
     "joi": "^17.13.3",
     "layout": "^2.2.0",
     "method-override": "^3.0.0",
+    "mongodb": "^6.15.0",
     "mongoose": "^8.10.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",

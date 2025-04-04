@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 8080;
@@ -47,7 +48,8 @@ app.use((req, res, next) => {
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/VIRTUALPLANNER";
+// const MONGO_URL = "mongodb://127.0.0.1:27017/VIRTUALPLANNER";
+const dbUrl=process.env.ATLASDB_URL;
 const signup = require("./routes/signup.js");
 const login = require("./routes/login.js");
 
@@ -60,7 +62,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dbUrl);
 }
 
 app.use("/SignUp", signup);
