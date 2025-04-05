@@ -14,7 +14,7 @@ const validateSchema = (req, res, next) => {
 };
 
 router.get("/", (req, res) => {
-  res.render("listings/SignUp.ejs");
+  res.render("listings/signup.ejs");
 });
 
 router.post("/", validateSchema, async (req, res) => {
