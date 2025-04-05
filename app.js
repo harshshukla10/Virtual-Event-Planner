@@ -18,7 +18,7 @@ const LocalStrategy = require("passport-local");
 const store=MongoStore.create({
   mongoUrl:dbUrl,
   crypto:{
-    secret:"mysupersecretstring",
+    secret:process.env.SECRET,
   },
   touchAfter:24*3600,
 });
@@ -29,7 +29,7 @@ store.on("error",()=>{
 
 const sessionOptions = {
   store,
-  secret: "mysupersecretstring",
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -64,7 +64,6 @@ app.use((req, res, next) => {
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// const MONGO_URL = "mongodb://127.0.0.1:27017/VIRTUALPLANNER";
 
 const signup = require("./routes/signup.js");
 const login = require("./routes/login.js");
