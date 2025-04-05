@@ -1,4 +1,5 @@
 require('dotenv').config();
+const dbUrl=process.env.ATLASDB_URL;
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 8080;
@@ -11,9 +12,23 @@ const ejsMate = require("ejs-mate");
 const mongoose = require("mongoose");
 const { userSchema } = require("./schema.js");
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
+const store=MongoStore.create({
+  mongoUrl:dbUrl,
+  crypto:{
+    secret:"mysupersecretstring",
+  },
+  touchAfter:24*3600,
+});
+
+store.on("error",()=>{
+  console.log("ERROR in MONGO SESSION Store",err);
+});
+
 const sessionOptions = {
+  store,
   secret: "mysupersecretstring",
   resave: false,
   saveUninitialized: true,
@@ -23,6 +38,7 @@ const sessionOptions = {
     httpOnly: true,
   },
 };
+
 const flash = require("connect-flash");
 const {isLoggedIn}=require("./middleware.js");
 
@@ -49,7 +65,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // const MONGO_URL = "mongodb://127.0.0.1:27017/VIRTUALPLANNER";
-const dbUrl=process.env.ATLASDB_URL;
+
 const signup = require("./routes/signup.js");
 const login = require("./routes/login.js");
 
