@@ -18,21 +18,23 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="icon" type="image/png" href="logo1.png" />
     <!-- MDB Bootstrap CSS -->
   </head>
   <body class="d-flex flex-column min-vh-100">
     <!-- MDB Bootstrap JS -->
     <style>
       body {
-        background: url('https://img.freepik.com/free-vector/white-abstract-background_23-2148806276.jpg?semt=ais_hybrid') no-repeat center center fixed;
-        background-size: cover;
-      }
+      background: url("https://www.knoxalliance.store/light-color-background-images-for-website-top-hd-images-for-free-background-for-website-in-light-color-1-1024x640/")
+        no-repeat center center fixed;
+      background-size: cover;
+    }
     </style>
-    
+
     <%- include("../includes/header.ejs") %>
     <div class="container">
-      <%- include("../includes/flash.ejs") %>
-      <%- body %></div>
+      <%- include("../includes/flash.ejs") %> <%- body %>
+    </div>
     <%- include("../includes/footer.ejs") %>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
