@@ -1,9 +1,20 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+  console.log("ENV Loaded:", {
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+  });
+}
+
 require('dotenv').config();
 const dbUrl=process.env.ATLASDB_URL;
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 8080;
 const path = require("path");
+const multer = require("multer");
+const HostData = require("./models/host-info.js");
 const User = require("./models/model1.js");
 const dashData = require("./models/dashdata.js");
 const EventData = require("./models/book.js");
@@ -15,6 +26,8 @@ const session = require("express-session");
 const MongoStore = require('connect-mongo');
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
+const { storage } = require("./cloudConfig.js");
+const upload = multer({ storage });
 const store=MongoStore.create({
   mongoUrl:dbUrl,
   crypto:{
@@ -144,4 +157,56 @@ app.get("/logout",(req,res)=>{
 
 app.get("/success", isLoggedIn,(req, res) => {
   res.render("listings/success.ejs");
+});
+
+app.get("/hostdash", isLoggedIn, (req, res) => {
+  res.render("./listings/hostdash.ejs");
+});
+
+
+app.get("/dash-data", async (req, res) => {
+  const dashHost=await HostData.find({});
+  res.render("./listings/dash-data.ejs",{dashHost});
+});
+
+app.get("/host-info", isLoggedIn, (req, res) => {
+  res.render("./listings/host-info.ejs");
+});
+
+app.post(
+  "/host-info",
+  upload.fields([
+    { name: "listing[profilePicture]", maxCount: 1 },
+    { name: "listing[eventPhotos]", maxCount: 10 },
+  ]),
+  async (req, res) => {
+    try {
+      const profilePicture = req.files["listing[profilePicture]"]
+        ? req.files["listing[profilePicture]"][0].path
+        : null;
+
+      const eventPhotos = req.files["listing[eventPhotos]"]
+        ? req.files["listing[eventPhotos]"].map((file) => file.path)
+        : [];
+
+      console.log("Files received:", req.files);
+
+      const eventData = {
+        ...req.body,
+        profilePicture,
+        eventPhotos,
+      };
+
+      const event1 = new HostData(eventData);
+      await event1.save();
+      res.redirect("/success");
+    } catch (err) {
+      console.error("Error saving host info:", err);
+      res.status(500).send("Something went wrong");
+    }
+  }
+);
+
+app.get("/successHost", isLoggedIn, (req, res) => {
+  res.render("./listings/successHost.ejs");
 });

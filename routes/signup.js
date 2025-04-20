@@ -17,30 +17,40 @@ router.get("/", (req, res) => {
   res.render("listings/signup.ejs");
 });
 
-router.post("/", validateSchema, async (req, res) => {
-  let { username, email, password, copassword } = req.body;
+router.post("/", validateSchema, async (req, res, next) => {
+  let { username, email, joinHost, password, copassword } = req.body;
+  console.log(req.body);
+
   try {
     if (password !== copassword) {
       req.flash("error", "Password does not match");
       return res.redirect("/signup");
     }
 
-    const newUser = new User({ email, username });
+    // Ensure joinHost is a boolean (checkbox sends "on" or "true")
+    const isJoiningAsHost = joinHost === "true" || joinHost === "on";
+
+    const newUser = new User({ email, username, joinHost: isJoiningAsHost });
     const registeredUser = await User.register(newUser, password);
 
     console.log(registeredUser);
+
     req.login(registeredUser, (err) => {
-      if (err) {
-        return next(err);
-      }
+      if (err) return next(err);
 
       req.flash("success", "Welcome to BookNHost");
-      res.redirect("/home");
+
+      if (isJoiningAsHost) {
+        return res.redirect("/dashboard");
+      } else {
+        return res.redirect("/guest-data");
+      }
     });
   } catch (e) {
     req.flash("error", e.message);
     res.redirect("/signup");
   }
 });
+
 
 module.exports = router;

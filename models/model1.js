@@ -9,7 +9,11 @@ const userSchema = new Schema({
         trim: true,
         lowercase: true,
   },
-  
+  joinHost: {
+    type: Boolean,
+    default: false, // or true, depending on your logic
+    required: false,
+  },
   
   // password: {
   //   type: String,

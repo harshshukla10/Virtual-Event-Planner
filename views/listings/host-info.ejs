@@ -1,0 +1,333 @@
+<% layout("/layouts/boilerplate") %>
+
+<body>
+  <div class="container mt-5 mb-5">
+    <div class="card shadow p-4">
+      <h2 class="mb-4 text-center">Event Host Registration Form</h2>
+      <form
+        action="/host-info"
+        method="POST"
+        enctype="multipart/form-data"
+        class="needs-validation row g-3"
+        novalidate
+      >
+        <!-- Basic Info -->
+        <h4 class="mb-3 mt-4">Basic Info (Identity & Contact)</h4>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="fullName" class="form-label"
+              >Full Name / Organization Name</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="fullName"
+              name="fullName"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter a valid input</div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter a valid input</div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input
+              type="tel"
+              class="form-control"
+              id="phone"
+              name="phone"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter a valid input</div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="profilePicture" class="form-label"
+              >Profile Picture / Logo</label
+            >
+            <input
+              type="file"
+              class="form-control"
+              id="profilePicture"
+              name="listing[profilePicture]"
+              accept="image/*"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter a valid input</div>
+          </div>
+          <div class="col-12 mb-3">
+            <label for="socialLinks" class="form-label"
+              >Website / Social Media Links (optional)</label
+            >
+            <input
+              type="url"
+              class="form-control"
+              id="socialLinks"
+              name="socialLinks"
+           
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter a valid input</div>
+          </div>
+        </div>
+
+        <!-- Business & Service Details -->
+        <h4 class="mb-3 mt-4">Business & Service Details</h4>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="firmName" class="form-label">Firm/Brand Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="firmName"
+              name="firmName"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter a valid input</div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="eventType" class="form-label"
+              >Type of Events They Host</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="eventType"
+              name="eventType"
+              placeholder="e.g., Weddings, Conferences"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter a valid input</div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="experience" class="form-label"
+              >Years of Experience</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="experience"
+              name="experience"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter a valid input</div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="location" class="form-label"
+              >Operating City pincode</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="location"
+              name="location"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter a valid input</div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="serviceArea" class="form-label">Service Area</label>
+            <select
+              class="form-select"
+              id="serviceArea"
+              name="serviceArea"
+              required
+            >
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Enter a valid input</div>
+              <option value="Local">Local</option>
+              <option value="National">National</option>
+              <option value="International">International</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Listing/Portfolio Info -->
+        <h4 class="mb-3 mt-4">Listing/Portfolio Info</h4>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="eventPhotos" class="form-label"
+              >Photos of Past Events</label
+            >
+            <input
+              type="file"
+              class="form-control"
+              id="eventPhotos"
+              name="listing[eventPhotos]"
+              multiple
+              accept="image/*"
+              required
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter a valid input</div>
+          </div>
+          
+          <div class="col-12 mb-3">
+            <label for="testimonials" class="form-label"
+              >Client Testimonials or Ratings</label
+            >
+            <textarea
+              required
+              class="form-control"
+              id="testimonials"
+              name="testimonials"
+              rows="2"
+            ></textarea>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter a valid input</div>
+          </div>
+          <div class="col-12 mb-3">
+            <label for="packages" class="form-label"
+              >Packages Offered (with pricing range if possible)</label
+            >
+            <textarea
+              class="form-control"
+              id="packages"
+              name="packages"
+              rows="2"
+              required
+            ></textarea>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter a valid input</div>
+          </div>
+          <div class="col-12 mb-3">
+            <label for="terms" class="form-label"
+              >Terms & Conditions / Cancellation Policy</label
+            >
+            <textarea
+              class="form-control"
+              id="terms"
+              name="terms"
+              rows="2"
+              required
+            ></textarea>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter a valid input</div>
+          </div>
+        </div>
+
+        <!-- Optional / Advanced Info -->
+        <h4 class="mb-3 mt-4">Optional / Advanced Info</h4>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="registrationNumber" class="form-label"
+              >Business Registration Number or License</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="registrationNumber"
+              name="registrationNumber"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter a valid input</div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="teamSize" class="form-label"
+              >Team Size / Staff Info</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="teamSize"
+              name="teamSize"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter a valid input</div>
+          </div>
+          <div class="col-12 mb-3">
+            <label for="customServices" class="form-label"
+              >Custom Services (like catering, decoration, DJ, etc.)</label
+            >
+            <textarea
+              class="form-control"
+              id="customServices"
+              name="customServices"
+              rows="2"
+              required
+            ></textarea>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter a valid input</div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="languagePreferences" class="form-label"
+              >Language Preferences</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="languagePreferences"
+              name="languagePreferences"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter a valid input</div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <label for="paymentMethods" class="form-label"
+              >Payment Methods Accepted</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="paymentMethods"
+              name="paymentMethods"
+              placeholder="e.g., UPI, card, cash"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter a valid input</div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary px-5 py-2">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Bootstrap custom validation logic
+    (function () {
+      "use strict";
+
+      window.addEventListener("load", function () {
+        var forms = document.querySelectorAll(".needs-validation");
+        Array.prototype.slice.call(forms).forEach(function (form) {
+          form.addEventListener("submit", function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+
+            form.classList.add("was-validated");
+          });
+        });
+      });
+    })();
+  </script>
+</body>
