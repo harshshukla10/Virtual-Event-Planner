@@ -1,53 +1,32 @@
 <% layout("/layouts/boilerplate") %>
 
 
-    <style>
-        body {
-            background-color: #f8f9fa; /* Light background color */
-        }
-        .welcome-container {
-            max-width: 800px; /* Set a max width for the welcome message */
-            margin: auto; /* Center the content */
-            padding: 20px; /* Add some padding */
-            text-align: center; /* Center text */
-        }
-        .card {
-            margin: 20px 0; /* Space between cards */
-        }
-        .carousel-item img {
-            max-height: 400px; /* Set a max height for carousel images */
-            object-fit: cover; /* Cover the area without distortion */
-        }
-    </style>
-
 <body>
-    <div class="welcome-container mt-5">
-        <h1>Welcome to Virtual Event!</h1>
-        <p>Congratulations on successfully signing up as a host. Here’s what we offer:</p>
+  <section id="about-us" style="padding: 80px 20px 40px; background-color: #f9f9f9;">
+    <div class="container">
+      <h1 class="text-center" id="page1">
+        Welcome to 
+        <span class="inner">BookNHost!</span>
+      </h1>
+      <p class="text-center" id="page-1">
+        Congratulations on successfully signing up as a host. Here’s what we offer:
+      </p>
     </div>
+  </section>
         <!-- Carousel -->
         <div id="servicesCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="https://www.midlothiancenter.com/wp-content/uploads/2020/06/Event-management-Concept.-The.jpg" class="d-block w-100" alt="Event Management">
-                    <div class="carousel-caption d-none d-md-block" style="background-color: #f8f9fa; color: black;">
-                        <h5>Event Management</h5>
-                        <p>Manage your events seamlessly with our user-friendly platform.</p>
-                    </div>
+                    
                 </div>
                 <div class="carousel-item">
                     <img src="https://snov.io/glossary/wp-content/uploads/2023/12/image.png" class="d-block w-100" alt="Customer Engagement">
-                    <div class="carousel-caption d-none d-md-block " style="background-color: #f8f9fa; color: black;">
-                        <h5>Customer Engagement</h5>
-                        <p>Engage with your customers through interactive features.</p>
-                    </div>
+                    
                 </div>
                 <div class="carousel-item">
                     <img src="https://cdn.prod.website-files.com/5fda9e054c8f10649883f27d/621fd0d9b784734b82b10ae1_1306885_Op1-1200x627_022122.png" class="d-block w-100" alt="Analytics">
-                    <div class="carousel-caption d-none d-md-block" style="background-color: #f8f9fa; color: black;">
-                        <h5>Analytics</h5>
-                        <p>Get insights into your events and customer preferences.</p>
-                    </div>
+                  
                 </div>
             </div>
             <a class="carousel-control-prev" href="#servicesCarousel" role="button" data-slide="prev">
@@ -86,6 +65,35 @@
             </div>
           </div>
 
+          <link rel="stylesheet" href="dash-data.css">
+
+          <div class="container mt-5">
+            <h3 class="mb-4 text-center">Open for Bookings </h3>
+            </div>
+        <div class="container mt-4">
+            <div class="row">
+              <% for(let listing of dashHost){ %>
+              <div class="col-md-4 col-sm-6 mb-3">
+                <div class="card" style="width: 100%">
+                  <img
+                    class="card-img-top"
+                    src="<%=listing.profilePicture%>"
+                    style="height: 200px; object-fit: cover"
+                    alt="Card image cap"
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title"><%= listing.firmName%></h5>
+                    <p class="card-text"><%= listing.eventType%></p>
+                    <a  class="btn btn-primary"
+                      >Accept</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <% } %>
+            </div>
+          </div>
+        
         <!-- Cards for Additional Information -->
         <div class="card">
             <div class="card-body">
@@ -101,8 +109,7 @@
                 <a href="/host-info" class="btn btn-primary">List your firm</a>
             </div>
         </div>
-    
-
+   
     <!-- Bootstrap JS and dependencies (optional) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

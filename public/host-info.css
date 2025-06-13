@@ -1,0 +1,165 @@
+/* General page background */
+body {
+    background: linear-gradient(110deg,#e0eaff 70%,#f6fbff 100%) !important;
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    padding-top: 80px;
+  }
+  
+  /* Card Styles */
+  .card {
+    border-radius: 1.5rem;
+    background: #fff;
+    box-shadow: 0 4px 24px rgba(52,100,255,0.08);
+    border: none;
+    transition: box-shadow 0.18s, transform 0.12s;
+  }
+  .card:hover {
+    box-shadow: 0 12px 32px rgba(52,100,255,0.15);
+    transform: translateY(-3px) scale(1.01);
+  }
+  
+  /* Section headings */
+  .card h2, .card h4 {
+    color: #2d3748;
+    font-weight: 700;
+    letter-spacing: .01em;
+  }
+  .card h2 {
+    font-size: 2rem;
+    margin-bottom: 2.2rem;
+  }
+  .card h4 {
+    font-size: 1.21rem;
+    margin-bottom: 1.1rem;
+    margin-top: 2.2rem;
+  }
+  
+  /* Form Styles */
+  form label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.4rem;
+  }
+  .form-control, .form-select {
+    border-radius: 0.8rem;
+    border: 1.5px solid #c7d2fe;
+    font-size: 1rem;
+    padding: 0.7rem 1rem;
+    background: #f7fafd;
+    transition: border-color .18s, box-shadow .18s;
+    box-shadow: 0 1px 8px rgba(52,100,255,0.03);
+  }
+  .form-control:focus, .form-select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 2px 16px rgba(52,100,255,0.06);
+    background: #eef4ff;
+  }
+  textarea.form-control {
+    min-height: 45px;
+    resize: vertical;
+  }
+  
+  input[type="file"].form-control {
+    padding: 0.45rem 1rem;
+    background: #f1f5fd;
+  }
+  
+  /* Validation Feedback */
+  .was-validated .form-control:invalid, .was-validated .form-select:invalid {
+    border-color: #ef4444;
+    background: #fef2f2;
+  }
+  .was-validated .form-control:valid, .was-validated .form-select:valid {
+    border-color: #22c55e;
+    background: #f0fdf4;
+  }
+  .valid-feedback, .invalid-feedback {
+    font-size: .96em;
+    margin-top: 0.15rem;
+  }
+  
+  /* Submit Button */
+  .btn-primary {
+    background: linear-gradient(90deg, #2563eb 60%, #3136e0 100%);
+    border: none;
+    border-radius: 2rem;
+    font-weight: 700;
+    font-size: 1.12rem;
+    padding: 0.8rem 2.2rem;
+    letter-spacing: .01em;
+    box-shadow: 0 2px 10px rgba(52,100,255,0.11);
+    transition: background 0.16s, box-shadow 0.18s, transform 0.13s;
+  }
+  .btn-primary:hover, .btn-primary:focus {
+    background: linear-gradient(90deg, #1d4ed8 60%, #5b21b6 100%);
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(52, 100, 255, 0.13);
+    transform: translateY(-2px) scale(1.033);
+  }
+  
+  .text-center {
+    text-align: center!important;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 900px) {
+    .container {
+      padding-left: 0.3rem;
+      padding-right: 0.3rem;
+    }
+    .card {
+      border-radius: 1rem;
+      padding: 1.3rem 0.2rem 1.3rem 0.2rem;
+    }
+    .card h2 {
+      font-size: 1.5rem;
+    }
+    .card h4 {
+      font-size: 1.1rem;
+    }
+    .btn-primary {
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .container {
+      margin-top: 1.2rem!important;
+      margin-bottom: 1.2rem!important;
+      padding-left: 0.05rem;
+      padding-right: 0.05rem;
+    }
+    .card {
+      padding: 0.5rem 0.1rem 0.8rem 0.1rem;
+      border-radius: 0.7rem;
+    }
+    .card h2 {
+      font-size: 1.15rem;
+      margin-bottom: 1.2rem;
+    }
+    .card h4 {
+      font-size: 1rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .form-control, .form-select {
+      padding: 0.5rem 0.7rem;
+      font-size: 0.96rem;
+      border-radius: 0.5rem;
+    }
+    .btn-primary {
+      padding: 0.65rem 1.1rem;
+      font-size: 0.97rem;
+      border-radius: 1.2rem;
+    }
+  }
+  
+  /* Nice animation for card appearance */
+  @keyframes fadeInCard {
+    from { opacity: 0; transform: translateY(25px);}
+    to { opacity: 1; transform: translateY(0);}
+  }
+  .card {
+    animation: fadeInCard 0.8s;
+  }

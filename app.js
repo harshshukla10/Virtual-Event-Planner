@@ -159,17 +159,24 @@ app.get("/success", isLoggedIn,(req, res) => {
   res.render("listings/success.ejs");
 });
 
-app.get("/hostdash", isLoggedIn, (req, res) => {
+app.get("/hostdash", isLoggedIn,(req, res) => {
   res.render("./listings/hostdash.ejs");
 });
 
+app.get("/hostSignup", (req, res) => {
+  res.render("./listings/host-signup.ejs");
+});
+
+app.post("/hostSignup", (req, res) => {
+ 
+});
 
 app.get("/dash-data", async (req, res) => {
   const dashHost=await HostData.find({});
   res.render("./listings/dash-data.ejs",{dashHost});
 });
 
-app.get("/host-info", isLoggedIn, (req, res) => {
+app.get("/host-info", isLoggedIn,(req, res) => {
   res.render("./listings/host-info.ejs");
 });
 
@@ -207,6 +214,6 @@ app.post(
   }
 );
 
-app.get("/successHost", isLoggedIn, (req, res) => {
-  res.render("./listings/successHost.ejs");
+app.get("/success", isLoggedIn,(req, res) => {
+  res.render("./listings/success.ejs");
 });

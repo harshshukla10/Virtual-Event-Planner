@@ -1,50 +1,106 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
 
-body{
+body {
     font-family: 'Poppins', sans-serif;
-    background: #ececec;
+    background: linear-gradient(135deg, #ececec, #ffffff); /* Subtle gradient */
+    margin: 0;
+    padding: 0;
 }
 
 /*------------ Login container ------------*/
 
-.box-area{
+.box-area {
     width: 930px;
+    margin: 50px auto; /* Center the box */
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 /*------------ Right box ------------*/
 
-.right-box{
+.right-box {
     padding: 40px 30px 40px 40px;
+    background: #f9f9f9; /* Light background */
+    border-radius: 20px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05); /* Inner shadow */
 }
 
 /*------------ Custom Placeholder ------------*/
 
-::placeholder{
+::placeholder {
     font-size: 16px;
+    color: #b0b0b0; /* Light gray */
+    font-style: italic; /* Optional */
 }
 
-.rounded-4{
+/*------------ Input Focus Styles ------------*/
+
+input:focus {
+    outline: none;
+    border: 2px solid #103cbe; /* Highlight border */
+    box-shadow: 0 0 5px rgba(16, 60, 190, 0.5); /* Glowing effect */
+}
+
+/*------------ Buttons ------------*/
+
+button {
+    background-color: #103cbe;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #0d2a9e;
+    box-shadow: 0 4px 10px rgba(16, 60, 190, 0.5);
+}
+
+/*------------ Rounded Corners ------------*/
+
+.rounded-4 {
     border-radius: 20px;
 }
-.rounded-5{
+
+.rounded-5 {
     border-radius: 30px;
 }
 
+/*------------ For small screens ------------*/
 
-/*------------ For small screens------------*/
-
-@media only screen and (max-width: 768px){
-
-     .box-area{
-        margin: 0 10px;
-
-     }
-     .left-box{
-        height: 100px;
+@media only screen and (max-width: 768px) {
+    .box-area {
+        width: 100%;
+        margin: 20px;
+        padding: 10px;
+    }
+    .left-box {
+        height: auto;
         overflow: hidden;
-     }
-     .right-box{
+    }
+    .right-box {
         padding: 20px;
-     }
+        background: #ffffff;
+    }
+}
+#page1 {
+    margin-top: 50px;
+    font: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 2.5rem;
+}
+#head{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  }
 
+#page-1{
+    font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 1.2rem;
+
+}
+.inner{
+    color: #B1D1A8;
 }

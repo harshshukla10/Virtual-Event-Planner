@@ -17,7 +17,7 @@ const eventHostSchema = new mongoose.Schema({
     required: true,
   },
   profilePicture: {
-    type: String, // Store filename or URL
+    type: String, 
     required: true,
   },
   socialLinks: {
