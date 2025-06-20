@@ -59,6 +59,10 @@ const eventSchema = new Schema({
     enum: ["Yes", "No"],
     required: [true, "Event planner preference is required"],
   },
+  userId: {
+    type:String
+  },
+  status: { type: String, default: 'pending' },
 });
 
 module.exports = mongoose.model("EventData", eventSchema);

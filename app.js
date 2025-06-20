@@ -7,8 +7,8 @@ if (process.env.NODE_ENV !== "production") {
   });
 }
 
-require('dotenv').config();
-const dbUrl=process.env.ATLASDB_URL;
+require("dotenv").config();
+const dbUrl = process.env.ATLASDB_URL;
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 8080;
@@ -23,21 +23,21 @@ const ejsMate = require("ejs-mate");
 const mongoose = require("mongoose");
 const { userSchema } = require("./schema.js");
 const session = require("express-session");
-const MongoStore = require('connect-mongo');
+const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const { storage } = require("./cloudConfig.js");
 const upload = multer({ storage });
-const store=MongoStore.create({
-  mongoUrl:dbUrl,
-  crypto:{
-    secret:process.env.SECRET,
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  crypto: {
+    secret: process.env.SECRET,
   },
-  touchAfter:24*3600,
+  touchAfter: 24 * 3600,
 });
 
-store.on("error",()=>{
-  console.log("ERROR in MONGO SESSION Store",err);
+store.on("error", () => {
+  console.log("ERROR in MONGO SESSION Store", err);
 });
 
 const sessionOptions = {
@@ -53,7 +53,7 @@ const sessionOptions = {
 };
 
 const flash = require("connect-flash");
-const {isLoggedIn}=require("./middleware.js");
+const { isLoggedIn } = require("./middleware.js");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -70,13 +70,12 @@ passport.use(new LocalStrategy(User.authenticate()));
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
-  res.locals.currUser=req.user;
+  res.locals.currUser = req.user;
   next();
 });
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
 
 const signup = require("./routes/signup.js");
 const login = require("./routes/login.js");
@@ -110,10 +109,11 @@ app.get("/home", (req, res) => {
 
 app.get("/dashboard", isLoggedIn, async (req, res) => {
   const dashData1 = await dashData.find({});
-  res.render("listings/dashboard.ejs", { dashData1 });
+  const dashBook = await EventData.find({ userId: req.user.username });
+  res.render("listings/dashboard.ejs", { dashData1, dashBook });
 });
 
-app.get("/dashboard/:id", isLoggedIn,async (req, res) => {
+app.get("/dashboard/:id", isLoggedIn, async (req, res) => {
   try {
     let { id } = req.params;
 
@@ -133,9 +133,13 @@ app.get("/dashboard/:id", isLoggedIn,async (req, res) => {
   }
 });
 
-app.post("/dashboard/:id", async (req, res) => {
+app.post("/dashboard/:id", isLoggedIn, async (req, res) => {
   try {
-    const event = new EventData(req.body);
+    // Attach the logged-in user's email or ID to the booking data
+    const event = new EventData({
+      ...req.body,
+      userId: req.user.username, // or userId: req.user._id if you use IDs
+    });
     await event.save();
     res.redirect("/success");
   } catch (error) {
@@ -143,23 +147,21 @@ app.post("/dashboard/:id", async (req, res) => {
   }
 });
 
-app.get("/logout",(req,res)=>{
-  req.logout((err)=>{
-    if(err){
+app.get("/logout", (req, res) => {
+  req.logout((err) => {
+    if (err) {
       return next(err);
     }
-    req.flash("success","You are logged out !");
+    req.flash("success", "You are logged out !");
     res.redirect("/home");
-
   });
- 
 });
 
-app.get("/success", isLoggedIn,(req, res) => {
+app.get("/success", isLoggedIn, (req, res) => {
   res.render("listings/success.ejs");
 });
 
-app.get("/hostdash", isLoggedIn,(req, res) => {
+app.get("/hostdash", isLoggedIn, (req, res) => {
   res.render("./listings/hostdash.ejs");
 });
 
@@ -167,16 +169,15 @@ app.get("/hostSignup", (req, res) => {
   res.render("./listings/host-signup.ejs");
 });
 
-app.post("/hostSignup", (req, res) => {
- 
+app.post("/hostSignup", (req, res) => {});
+
+app.get("/dash-data", isLoggedIn, async (req, res) => {
+  const dashHost = await HostData.find({});
+  const dashBook1 = await EventData.find({});
+  res.render("./listings/dash-data.ejs", { dashHost, dashBook1 });
 });
 
-app.get("/dash-data", async (req, res) => {
-  const dashHost=await HostData.find({});
-  res.render("./listings/dash-data.ejs",{dashHost});
-});
-
-app.get("/host-info", isLoggedIn,(req, res) => {
+app.get("/host-info", isLoggedIn, (req, res) => {
   res.render("./listings/host-info.ejs");
 });
 
@@ -214,6 +215,22 @@ app.post(
   }
 );
 
-app.get("/success", isLoggedIn,(req, res) => {
+app.get("/success", isLoggedIn, (req, res) => {
   res.render("./listings/success.ejs");
+});
+
+app.post('/accept/:id', async (req, res) => {
+  try {
+    const booking = await EventData.findById(req.params.id);
+    if (!booking) return res.json({ success: false, message: "Booking not found." });
+    booking.status = 'accepted';
+    await booking.save();
+    res.json({
+      success: true,
+      customerContact: booking.customerContact,
+      message: "Booking successfully accepted!"
+    });
+  } catch (err) {
+    res.json({ success: false, message: "An error occurred." });
+  }
 });

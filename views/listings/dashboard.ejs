@@ -36,3 +36,56 @@
     <% } %>
   </div>
 </div>
+
+<!--  Your bookings component -->
+
+<section id="about-us" style="padding: 80px 20px 40px; background-color: #f9f9f9;">
+  <div class="container">
+    <h1 class="text-center" id="page1">
+      Your 
+      <span class="inner"> Bookings !</span>
+    </h1>
+    <p class="text-center" id="page-1">
+      You’re all set to manage your bookings. Book, track, and organize with ease—right at your fingertips.
+    </p>
+  </div>
+</section>
+
+
+<div class="container mt-4">
+  <div class="row">
+    <% for(let book of dashBook){ %>
+      <div class="card text-center mb-4">
+        <div 
+          class="card-header" 
+          <% if(book.status === "accepted"){ %> 
+            style="background:#97ce87; color:white" 
+          <% } %>
+        >
+          <% if(book.status === "accepted"){ %>
+            Booking Confirmed
+          <% } else { %>
+            <%= book.eventType%>
+          <% } %>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= book.eventName%></h5>
+          <p class="card-text">
+            <% if(book.status === "accepted"){ %>
+              Your booking has been successfully accepted by <%= book.firmName %>. Please wait for a call from the host for further details. Thank you for choosing us!
+            <% } else { %>
+              Your booking is being processed. We’re working to confirm your reservation and will update you soon.
+            <% } %>
+          </p>
+          <a href="#" class="btn btn-primary">
+            <% if(book.status === "accepted"){ %>
+              Booking Confirmed
+            <% } else { %>
+              Booking In Progress
+            <% } %>
+          </a>
+        </div>
+      </div>
+    <% } %>
+  </div>
+</div>
