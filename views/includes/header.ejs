@@ -1,9 +1,14 @@
- <!-- Navbar -->
- <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
-      <img src="logo.png" alt="Logo" width="100" height="35" class="d-inline-block align-text-top">
-      
+      <img
+        src="logo.png"
+        alt="Logo"
+        width="100"
+        height="35"
+        class="d-inline-block align-text-top"
+      />
     </a>
     <button
       class="navbar-toggler"
@@ -52,9 +57,8 @@
         </li> -->
       </ul>
       <form class="d-flex ms-auto" role="search">
-
         <% if (!currUser) { %>
-          <button
+        <button
           type="button"
           class="btn btn-success me-2"
           onclick="window.location.href='/login'"
@@ -63,23 +67,20 @@
         </button>
         <button
           type="button"
-          class="btn btn-outline-secondary  me-2"
+          class="btn btn-outline-secondary me-2"
           onclick="window.location.href='/signup'"
         >
           Sign Up
         </button>
-        <% } %>
-        
-        <% if (currUser) { %>
-         <button
+        <% } %> <% if (currUser) { %>
+        <button
           type="button"
           class="btn btn-outline-danger"
           onclick="window.location.href='/logout'"
         >
           Log out
         </button>
-          <% } %>
-        
+        <% } %>
       </form>
     </div>
   </div>

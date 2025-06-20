@@ -220,17 +220,23 @@ app.get("/success", isLoggedIn, (req, res) => {
 });
 
 app.post('/accept/:id', async (req, res) => {
+  console.log('POST /accept/:id called with', req.params.id);
   try {
     const booking = await EventData.findById(req.params.id);
-    if (!booking) return res.json({ success: false, message: "Booking not found." });
+    if (!booking) {
+      console.log('Booking not found');
+      return res.json({ success: false, message: "Booking not found." });
+    }
     booking.status = 'accepted';
     await booking.save();
+    console.log('Booking accepted:', booking._id);
     res.json({
       success: true,
       customerContact: booking.customerContact,
       message: "Booking successfully accepted!"
     });
   } catch (err) {
+    console.error(err);
     res.json({ success: false, message: "An error occurred." });
   }
 });

@@ -60,9 +60,15 @@ const eventSchema = new Schema({
     required: [true, "Event planner preference is required"],
   },
   userId: {
-    type:String
+    type: String,
   },
-  status: { type: String, default: 'pending' },
+  status: { type: String, default: "pending" },
+
+  phnNumber: {
+    type: Number,
+    required: [true, "Phone number is required"],
+    min: [1, "At least 10 digit is required"],
+  },
 });
 
 module.exports = mongoose.model("EventData", eventSchema);
