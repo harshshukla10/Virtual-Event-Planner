@@ -41,9 +41,9 @@ router.post("/", validateSchema, async (req, res, next) => {
       req.flash("success", "Welcome to BookNHost");
 
       if (isJoiningAsHost) {
-        return res.redirect("/dashboard");
+        return res.redirect("/dash-data");
       } else {
-        return res.redirect("/guest-data");
+        return res.redirect("/dashboard");
       }
     });
   } catch (e) {

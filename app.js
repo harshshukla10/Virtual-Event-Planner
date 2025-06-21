@@ -54,6 +54,8 @@ const sessionOptions = {
 
 const flash = require("connect-flash");
 const { isLoggedIn } = require("./middleware.js");
+const {onlyCustomer} = require("./onlyCustomer.js");
+const {onlyHost} = require("./onlyHost.js");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -107,13 +109,13 @@ app.get("/home", (req, res) => {
   res.render("listings/index.ejs");
 });
 
-app.get("/dashboard", isLoggedIn, async (req, res) => {
+app.get("/dashboard", onlyCustomer,isLoggedIn, async (req, res) => {
   const dashData1 = await dashData.find({});
   const dashBook = await EventData.find({ userId: req.user.username });
   res.render("listings/dashboard.ejs", { dashData1, dashBook });
 });
 
-app.get("/dashboard/:id", isLoggedIn, async (req, res) => {
+app.get("/dashboard/:id",onlyCustomer, isLoggedIn, async (req, res) => {
   try {
     let { id } = req.params;
 
@@ -133,7 +135,7 @@ app.get("/dashboard/:id", isLoggedIn, async (req, res) => {
   }
 });
 
-app.post("/dashboard/:id", isLoggedIn, async (req, res) => {
+app.post("/dashboard/:id",onlyCustomer, isLoggedIn, async (req, res) => {
   try {
     // Attach the logged-in user's email or ID to the booking data
     const event = new EventData({
@@ -147,7 +149,7 @@ app.post("/dashboard/:id", isLoggedIn, async (req, res) => {
   }
 });
 
-app.get("/logout", (req, res) => {
+app.get("/logout", (req, res, next) => {
   req.logout((err) => {
     if (err) {
       return next(err);
@@ -161,23 +163,18 @@ app.get("/success", isLoggedIn, (req, res) => {
   res.render("listings/success.ejs");
 });
 
-app.get("/hostdash", isLoggedIn, (req, res) => {
+app.get("/hostdash", onlyHost,isLoggedIn, (req, res) => {
   res.render("./listings/hostdash.ejs");
 });
 
-app.get("/hostSignup", (req, res) => {
-  res.render("./listings/host-signup.ejs");
-});
 
-app.post("/hostSignup", (req, res) => {});
-
-app.get("/dash-data", isLoggedIn, async (req, res) => {
-  const dashHost = await HostData.find({});
+app.get("/dash-data", onlyHost,isLoggedIn, async (req, res) => {
+  const dashHost = await HostData.find({userId: req.user.username});
   const dashBook1 = await EventData.find({});
   res.render("./listings/dash-data.ejs", { dashHost, dashBook1 });
 });
 
-app.get("/host-info", isLoggedIn, (req, res) => {
+app.get("/host-info", onlyHost,isLoggedIn, (req, res) => {
   res.render("./listings/host-info.ejs");
 });
 
@@ -197,12 +194,12 @@ app.post(
         ? req.files["listing[eventPhotos]"].map((file) => file.path)
         : [];
 
-      console.log("Files received:", req.files);
-
+      // Compose eventData from form fields and uploaded files
       const eventData = {
         ...req.body,
         profilePicture,
         eventPhotos,
+        userId: req.user.username, // <-- Set userId from the logged-in session
       };
 
       const event1 = new HostData(eventData);
@@ -214,8 +211,7 @@ app.post(
     }
   }
 );
-
-app.get("/success", isLoggedIn, (req, res) => {
+app.get("/success",onlyHost, isLoggedIn, (req, res) => {
   res.render("./listings/success.ejs");
 });
 

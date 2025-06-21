@@ -17,8 +17,23 @@ const validateSchema = (req, res, next) => {
   }
 };
 
-router.post("/",passport.authenticate("local",{failureRedirect:"/login", failureFlash:true}) ,async (req, res) => {
-  res.redirect("/dashboard");
-});
-
+router.post(
+  "/",
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: true,
+  }),
+  async (req, res) => {
+    // Assuming joinHost is stored as Boolean in the User model
+    if (
+      req.user.joinHost === true ||
+      req.user.joinHost === "true" ||
+      req.user.joinHost === "on"
+    ) {
+      return res.redirect("/dash-data");
+    } else {
+      return res.redirect("/dashboard");
+    }
+  }
+);
 module.exports = router;
