@@ -219,21 +219,21 @@ app.get("/success", isLoggedIn, (req, res) => {
   res.render("./listings/success.ejs");
 });
 
-app.post('/accept/:id', async (req, res) => {
-  console.log('POST /accept/:id called with', req.params.id);
+app.post("/accept/:id", async (req, res) => {
+  console.log("POST /accept/:id called with", req.params.id);
   try {
     const booking = await EventData.findById(req.params.id);
     if (!booking) {
-      console.log('Booking not found');
+      console.log("Booking not found");
       return res.json({ success: false, message: "Booking not found." });
     }
-    booking.status = 'accepted';
+    booking.status = "accepted";
     await booking.save();
-    console.log('Booking accepted:', booking._id);
+    console.log("Booking accepted:", booking._id);
     res.json({
       success: true,
       customerContact: booking.customerContact,
-      message: "Booking successfully accepted!"
+      message: "Booking successfully accepted!",
     });
   } catch (err) {
     console.error(err);
