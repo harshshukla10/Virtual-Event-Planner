@@ -163,7 +163,7 @@ app.get("/success", isLoggedIn, (req, res) => {
   res.render("listings/success.ejs");
 });
 
-app.get("/hostdash", onlyHost,isLoggedIn, (req, res) => {
+app.get("/hostdash",isLoggedIn, (req, res) => {
   res.render("./listings/hostdash.ejs");
 });
 
