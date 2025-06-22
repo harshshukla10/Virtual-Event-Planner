@@ -236,22 +236,28 @@
     }
 
     function acceptBooking(bookingId, btn) {
-      fetch("/accept/" + bookingId, { method: "POST" })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.success) {
-            btn.innerText = "Accepted";
-            btn.className = "btn btn-primary";
-            btn.style.background = "#97ce87";
-            btn.style.color = "white";
-            btn.disabled = true;
-            const contactDiv = document.createElement("div");
-            contactDiv.className = "mt-2";
-            contactDiv.innerHTML = `<strong>Please review the event details and reach out to the customer for further coordination.</strong>`;
-            btn.parentElement.appendChild(contactDiv);
-          }
-        });
-    }
+  fetch("/accept/" + bookingId, { method: "POST" })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.redirect) {
+        window.location.href = data.redirect; // Redirect to route that shows the flash message
+        return;
+      }
+      if (data.success) {
+        btn.innerText = "Accepted";
+        btn.className = "btn btn-primary";
+        btn.style.background = "#97ce87";
+        btn.style.color = "white";
+        btn.disabled = true;
+        const contactDiv = document.createElement("div");
+        contactDiv.className = "mt-2";
+        contactDiv.innerHTML = `<strong>Please review the event details and reach out to the customer for further coordination.</strong>`;
+        btn.parentElement.appendChild(contactDiv);
+      } else if (data.message) {
+        alert(data.message); // fallback if you want to show a message
+      }
+    });
+}
 
     // Make functions available globally for inline onclick
     window.showDetails = showDetails;

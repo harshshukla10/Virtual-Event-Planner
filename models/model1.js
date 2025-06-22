@@ -23,7 +23,11 @@ const userSchema = new Schema({
 
   created_at:{
     type:Date
-}
+},
+firmCount: {
+  type: Number,
+  default: 0
+},
 });
 userSchema.plugin(passportLocalMongoose);
 
